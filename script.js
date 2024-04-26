@@ -1,6 +1,4 @@
-// GameBoard module
-
-// Cell factory function
+//Cell factory function
 const createCell = () => {
   let value = 0;
 
@@ -44,7 +42,7 @@ const GameBoard = (function () {
   return { getBoard, selectCell, printBoard, resetBoard };
 })();
 
-// GameController module
+//GameController module
 const GameController = (function (player1 = "Player 1", player2 = "Player 2") {
   const board = GameBoard;
   const players = [
@@ -198,3 +196,198 @@ const ScreenController = (function () {
 
   updateScreen();
 })();
+
+//////////////////////////////////
+//Class;
+
+// // GameBoard module
+
+// // Class
+// class CreateCell {
+//   constructor() {
+//     this.value = 0;
+//   }
+//   addSelection = (player) => (this.value = player);
+//   getValue = () => this.value;
+// }
+
+// class GameBoard {
+//   constructor() {
+//     const cellCount = 9;
+//     this.board = [];
+
+//     // Initialize the board with cells
+//     for (let i = 0; i < cellCount; i++) {
+//       this.board[i] = new CreateCell();
+//     }
+//   }
+//   // Get the current board
+//   getBoard = () => this.board;
+
+//   resetBoard = () => {
+//     board.forEach((cell) => cell.addSelection(0));
+//   };
+
+//   // Select a cell with the provided index for the given player
+//   selectCell = (i, player) => {
+//     if (board[i].getValue() !== 0) return;
+//     board[i].addSelection(player);
+//   };
+
+//   // Print the board with cell values
+//   printBoard = () => {
+//     const boardWithCellValues = board.map((cell) => cell.getValue());
+//     return boardWithCellValues;
+//   };
+// }
+
+// const test = new GameBoard();
+
+// console.log(test.getBoard());
+
+// class GameController {
+//   constructor(player1 = "Player 1", player2 = "Player 2") {
+//     board = new GameBoard();
+//     const players = [
+//       {
+//         name: player1,
+//         token: 1,
+//       },
+//       {
+//         name: player2,
+//         token: 2,
+//       },
+//     ];
+
+//     let activePlayer = players[0];
+//   }
+//   // Switch the active player
+//   switchPlayer = () => {
+//     activePlayer = activePlayer === players[0] ? players[1] : players[0];
+//   };
+
+//   // Get the active player
+//   getActivePlayer = () => activePlayer;
+
+//   // Print the new round information
+//   printNewRound = () => {
+//     board.printBoard();
+//     // console.log(`It is ${getActivePlayer().name}'s turn`);
+//     // console.log(board.printBoard());
+//   };
+
+//   checkWinner = () => {
+//     const winningCombos = [
+//       [0, 1, 2],
+//       [3, 4, 5],
+//       [6, 7, 8],
+//       [0, 3, 6],
+//       [1, 4, 7],
+//       [2, 5, 8],
+//       [0, 4, 8],
+//       [2, 4, 6],
+//     ];
+
+//     const filteredIndex = board.printBoard().reduce((result, value, index) => {
+//       if (value === getActivePlayer().token) {
+//         result.push(index);
+//       }
+//       return result;
+//     }, []);
+
+//     const isWinningCombo = winningCombos.some((winningCombo) =>
+//       winningCombo.every((value) => filteredIndex.includes(value))
+//     );
+//     return isWinningCombo;
+//   };
+
+//   checkGameState = () => {
+//     let gameState = "";
+//     if (checkWinner()) {
+//       gameState = "Win";
+//     } else if (!board.printBoard().includes(0)) {
+//       gameState = "Tie";
+//     }
+//     return gameState;
+//   };
+
+//   // Play a round by selecting a cell and switching players
+//   playRound = (index) => {
+//     board.selectCell(index, getActivePlayer().token);
+//     checkWinner();
+//     if (checkGameState() === "") {
+//       switchPlayer();
+//       printNewRound();
+//     } else {
+//       printNewRound();
+//     }
+//   };
+//   // printNewRound();
+// }
+
+// // ScreenController module
+// class ScreenController {
+//   constructor() {
+//     const game = GameController;
+//     const boardDiv = document.querySelector(".board");
+//     const restartBtn = document.querySelector(".btn-restart");
+//     const message = document.querySelector(".message");
+//     const board = GameBoard;
+//   }
+//   // Update the screen with the current board state
+//   updateScreen = () => {
+//     boardDiv.textContent = "";
+//     const getBoard = game.getBoard();
+//     const activePlayer = game.getActivePlayer();
+
+//     // Create cell buttons and display the cell values
+//     getBoard.forEach((cell, index) => {
+//       const cellButton = document.createElement("button");
+//       cellButton.classList.add("cell");
+//       cellButton.dataset.cell = index;
+//       if (cell.getValue() === 1) {
+//         cellButton.textContent = "X";
+//         cellButton.disabled = true;
+//       }
+//       if (cell.getValue() === 2) {
+//         cellButton.textContent = "O";
+//         cellButton.disabled = true;
+//       }
+
+//       if (cell.getValue() === 0) cellButton.textContent = " ";
+
+//       boardDiv.appendChild(cellButton);
+//     });
+
+//     // Update the message with the active player's turn
+//     message.textContent = `${activePlayer.name}'s turn...`;
+//     if (game.checkGameState() === "Win") {
+//       message.textContent = `${activePlayer.name} Win`;
+//       // Disable cell buttons
+//       const cellButtons = document.querySelectorAll(".cell");
+//       cellButtons.forEach((button) => {
+//         button.disabled = true;
+//       });
+//     }
+//   };
+
+//   // Restart Game
+//   restart = () => {
+//     board.resetBoard();
+//     updateScreen();
+//     if (!game.getActivePlayer[0]) game.getActivePlayer[0];
+//     message.textContent = "Please Select";
+//   };
+
+//   clickHandlerButton(e) {
+//     const selectedCell = e.target.dataset.cell;
+//     if (!selectedCell) return;
+//     // Trigger a round when a cell button is clicked
+//     game.playRound(selectedCell);
+//     updateScreen();
+//   }
+// }
+
+// updateScreen();
+// boardDiv.addEventListener("click", clickHandlerButton);
+// restartBtn.addEventListener("click", restart);
