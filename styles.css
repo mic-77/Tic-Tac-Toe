@@ -1,0 +1,46 @@
+*,
+*::after,
+*::before {
+  box-sizing: border-box;
+}
+
+:root {
+  --cell-size: 100px;
+  --mark-size: calc(var(--cell-size) * 0.9);
+}
+
+body {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+h1,
+h3 {
+  text-align: center;
+}
+
+.board {
+  width: 100vw;
+  height: 70vh;
+  display: grid;
+  justify-content: center;
+  align-content: center;
+  grid-template-columns: repeat(3, auto);
+}
+
+.cell {
+  content: "";
+  width: var(--cell-size);
+  height: var(--cell-size);
+  background-color: #f2f2f2;
+  border: 1px solid #ccc;
+}
+
+button:disabled {
+  background-color: initial;
+  color: initial;
+  cursor: initial;
+}
